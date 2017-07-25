@@ -1,6 +1,6 @@
 //
 //  VSCaptureSession.swift
-//  vs-metal
+//  vs
 //
 //  Created by SATOSHI NAKAJIMA on 6/30/17.
 //  Copyright © 2017 SATOSHI NAKAJIMA. All rights reserved.
@@ -18,17 +18,17 @@ protocol VSCaptureSessionDelegate: NSObjectProtocol {
 /// each video frame in Metal.
 class VSCaptureSession: NSObject {
     /// Specifies the camera position (default is front)
-    var cameraPosition = AVCaptureDevicePosition.front
+    var cameraPosition = AVCaptureDevice.Position.front
     /// Specifies the frame per second (optional)
     var fps:Int?
     /// Specifies the quality level of video frames (default is 720p)
-    var preset = AVCaptureSessionPreset1280x720
+    var preset = AVCaptureSession.Preset.hd1280x720
     
     private let device:MTLDevice
     fileprivate let pixelFormat:MTLPixelFormat
     fileprivate weak var delegate:VSCaptureSessionDelegate?
 
-    fileprivate var session:AVCaptureSession?
+    public var session:AVCaptureSession?
     fileprivate lazy var textureCache:CVMetalTextureCache = {
         var cache:CVMetalTextureCache? = nil
         CVMetalTextureCacheCreate(nil, nil, self.device, nil, &cache)
@@ -55,13 +55,11 @@ class VSCaptureSession: NSObject {
     }
 
     private func addCamera(session:AVCaptureSession) throws -> Bool {
-        let s = AVCaptureDeviceDiscoverySession(deviceTypes: [AVCaptureDeviceType.builtInWideAngleCamera],
-                                                mediaType: AVMediaTypeVideo, position: self.cameraPosition)
-        guard let camera = s?.devices[0] else {
-            return false
-        }
+        let s = AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera],
+                                                 mediaType: AVMediaType.video, position: self.cameraPosition)
+        let camera = s.devices[0]
         
-        if camera.supportsAVCaptureSessionPreset(preset) {
+        if camera.supportsSessionPreset(preset) {
             session.sessionPreset = preset
         }
         let cameraInput = try AVCaptureDeviceInput(device: camera)
@@ -95,7 +93,7 @@ class VSCaptureSession: NSObject {
             }
             let videoOutput = AVCaptureVideoDataOutput()
             videoOutput.videoSettings = [
-                kCVPixelBufferPixelFormatTypeKey as AnyHashable: kCVPixelFormatType_32BGRA
+                kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA
             ]
             videoOutput.setSampleBufferDelegate(self, queue: .main)
             session.addOutput(videoOutput)
@@ -132,9 +130,10 @@ AVCaptureVideoDataOutputSampleBufferDelegate {
         }
     }
     
-    func captureOutput(_ captureOutput: AVCaptureOutput!, didDrop sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
+    func captureOutput(_ captureOutput: AVCaptureOutput, didDrop sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         dropCount += 1
         frameCount += 1
     }
 }
+
 

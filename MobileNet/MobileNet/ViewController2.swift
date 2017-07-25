@@ -11,6 +11,8 @@ import AVFoundation
 import Vision
 
 class ViewController2: UIViewController {
+    @IBOutlet var viewMain:UIView!
+    @IBOutlet var labelFirst:UILabel!
     let model = MobileNet()
     var request:VNCoreMLRequest?
     lazy var session:VSCaptureSession = VSCaptureSession(device: MTLCreateSystemDefaultDevice()!, pixelFormat: MTLPixelFormat.a8Unorm, delegate: self)
@@ -37,8 +39,8 @@ class ViewController2: UIViewController {
         session.start()
         
         let previewLayer = AVCaptureVideoPreviewLayer(session: session.session!)
-        previewLayer.frame = self.view.bounds
-        self.view.layer.addSublayer(previewLayer)
+        previewLayer.frame = viewMain.bounds
+        viewMain.layer.addSublayer(previewLayer)
     }
 }
 

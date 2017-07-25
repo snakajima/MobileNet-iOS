@@ -16,12 +16,42 @@
                     <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ii0-nh-BNo">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Class" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMe-DK-V1e">
+                                <rect key="frame" x="8" y="626" width="359" height="33"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="33" id="6rF-Bg-bQb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="ii0-nh-BNo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="IhR-uW-eLu"/>
+                            <constraint firstItem="ii0-nh-BNo" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="T4J-G1-gr0"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="TMe-DK-V1e" secondAttribute="trailing" constant="8" id="Uab-Wo-IEA"/>
+                            <constraint firstItem="ii0-nh-BNo" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="WWV-Rt-nV6"/>
+                            <constraint firstAttribute="bottom" secondItem="TMe-DK-V1e" secondAttribute="bottom" constant="8" id="X11-Cn-eeu"/>
+                            <constraint firstItem="TMe-DK-V1e" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="fjH-PB-jEg"/>
+                            <constraint firstItem="ii0-nh-BNo" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="w6Y-Cn-kOZ"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="labelFirst" destination="TMe-DK-V1e" id="A81-oL-2vg"/>
+                        <outlet property="viewMain" destination="ii0-nh-BNo" id="A7O-vU-lbp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="32.799999999999997" y="38.23088455772114"/>
         </scene>
     </scenes>
 </document>

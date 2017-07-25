@@ -11,8 +11,7 @@ import AVFoundation
 import Vision
 
 class ViewController2: UIViewController {
-    //let model = MobileNet()
-    //lazy var visionModel = try? VNCoreMLModel(for: self.model.model)
+    let model = MobileNet()
     var request:VNCoreMLRequest?
     lazy var session:VSCaptureSession = VSCaptureSession(device: MTLCreateSystemDefaultDevice()!, pixelFormat: MTLPixelFormat.a8Unorm, delegate: self)
     var sampleBuffer:CMSampleBuffer?
@@ -20,8 +19,7 @@ class ViewController2: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-/*
-        if let visionModel = self.visionModel {
+        if let visionModel = try? VNCoreMLModel(for: self.model.model) {
             request = VNCoreMLRequest(model: visionModel) { request, error in
                 if let observations = request.results as? [VNClassificationObservation] {
                     // The observations appear to be sorted by confidence already, so we
@@ -34,7 +32,6 @@ class ViewController2: UIViewController {
             }
             request!.imageCropAndScaleOption = .centerCrop
         }
-*/
         session.start()
         
         let previewLayer = AVCaptureVideoPreviewLayer(session: session.session!)

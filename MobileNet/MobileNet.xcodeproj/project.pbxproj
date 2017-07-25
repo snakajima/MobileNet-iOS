@@ -13,6 +13,7 @@
 		747C55D11F27E9100017D2CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 747C55D01F27E9100017D2CD /* Assets.xcassets */; };
 		747C55D41F27E9100017D2CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 747C55D21F27E9100017D2CD /* LaunchScreen.storyboard */; };
 		747C55DE1F27EFC60017D2CD /* VSCaptureSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747C55DD1F27EFA70017D2CD /* VSCaptureSession.swift */; };
+		747C55E31F27F5E40017D2CD /* MobileNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 747C55E11F27F27B0017D2CD /* MobileNet.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		747C55D31F27E9100017D2CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		747C55D51F27E9100017D2CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		747C55DD1F27EFA70017D2CD /* VSCaptureSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VSCaptureSession.swift; sourceTree = "<group>"; };
+		747C55E11F27F27B0017D2CD /* MobileNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MobileNet.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				747C55C91F27E9100017D2CD /* AppDelegate.swift */,
 				747C55CB1F27E9100017D2CD /* ViewController.swift */,
 				747C55DD1F27EFA70017D2CD /* VSCaptureSession.swift */,
+				747C55E11F27F27B0017D2CD /* MobileNet.mlmodel */,
 				747C55CD1F27E9100017D2CD /* Main.storyboard */,
 				747C55D01F27E9100017D2CD /* Assets.xcassets */,
 				747C55D21F27E9100017D2CD /* LaunchScreen.storyboard */,
@@ -138,6 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				747C55E31F27F5E40017D2CD /* MobileNet.mlmodel in Sources */,
 				747C55DE1F27EFC60017D2CD /* VSCaptureSession.swift in Sources */,
 				747C55CC1F27E9100017D2CD /* ViewController.swift in Sources */,
 				747C55CA1F27E9100017D2CD /* AppDelegate.swift in Sources */,

@@ -37,6 +37,7 @@ class ViewController2: UIViewController {
                 self.sampleBuffer = nil
             }
             request.imageCropAndScaleOption = .centerCrop
+            //request.preferBackgroundProcessing = true
             self.request = request
             self.labelFirst.text = "Detecting..."
         }

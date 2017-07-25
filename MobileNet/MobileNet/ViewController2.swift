@@ -23,17 +23,21 @@ class ViewController2: UIViewController {
         
         if let visionModel = try? VNCoreMLModel(for: self.model.model) {
             let request = VNCoreMLRequest(model: visionModel) { request, error in
+                assert(Thread.current == Thread.main)
                 if let observations = request.results as? [VNClassificationObservation] {
                     // The observations appear to be sorted by confidence already, so we
                     // take the top 5 and map them to an array of (String, Double) tuples.
                     let top5 = observations[...4]
                         .map { ($0.identifier, Double($0.confidence)) }
                     print(top5)
+                    let (label, _) = top5[0]
+                    self.labelFirst.text = label
                 }
                 self.sampleBuffer = nil
             }
             request.imageCropAndScaleOption = .centerCrop
             self.request = request
+            self.labelFirst.text = "Detecting..."
         }
         session.cameraPosition = .back
         session.start()

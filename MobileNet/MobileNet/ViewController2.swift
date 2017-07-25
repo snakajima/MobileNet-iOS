@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ViewController2.swift
 //  MobileNet
 //
 //  Created by SATOSHI NAKAJIMA on 7/25/17.
@@ -10,9 +10,9 @@ import UIKit
 import AVFoundation
 import Vision
 
-class ViewController: UIViewController {
-    let model = MobileNetX()
-    lazy var visionModel = try? VNCoreMLModel(for: self.model.model)
+class ViewController2: UIViewController {
+    //let model = MobileNet()
+    //lazy var visionModel = try? VNCoreMLModel(for: self.model.model)
     var request:VNCoreMLRequest?
     lazy var session:VSCaptureSession = VSCaptureSession(device: MTLCreateSystemDefaultDevice()!, pixelFormat: MTLPixelFormat.a8Unorm, delegate: self)
     var sampleBuffer:CMSampleBuffer?
@@ -20,6 +20,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+/*
         if let visionModel = self.visionModel {
             request = VNCoreMLRequest(model: visionModel) { request, error in
                 if let observations = request.results as? [VNClassificationObservation] {
@@ -33,6 +34,7 @@ class ViewController: UIViewController {
             }
             request!.imageCropAndScaleOption = .centerCrop
         }
+*/
         session.start()
         
         let previewLayer = AVCaptureVideoPreviewLayer(session: session.session!)
@@ -41,7 +43,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController : VSCaptureSessionDelegate {
+extension ViewController2 : VSCaptureSessionDelegate {
     func didCaptureOutput(session:VSCaptureSession, texture textureIn:MTLTexture, sampleBuffer:CMSampleBuffer, presentationTime:CMTime) {
         if self.sampleBuffer != nil {
             print("skip")

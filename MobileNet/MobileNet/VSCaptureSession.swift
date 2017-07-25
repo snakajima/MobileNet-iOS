@@ -110,8 +110,8 @@ class VSCaptureSession: NSObject {
 
 extension VSCaptureSession : AVCaptureAudioDataOutputSampleBufferDelegate,
 AVCaptureVideoDataOutputSampleBufferDelegate {
-    public func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
-        if captureOutput is AVCaptureVideoDataOutput,
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        if output is AVCaptureVideoDataOutput,
            let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
             frameCount += 1
             let time = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)

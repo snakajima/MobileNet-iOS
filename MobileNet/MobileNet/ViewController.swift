@@ -16,6 +16,10 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         session.start()
+        
+        let previewLayer = AVCaptureVideoPreviewLayer(session: session.session!)
+        previewLayer.frame = self.view.bounds
+        self.view.layer.addSublayer(previewLayer)
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,6 +32,5 @@ class ViewController: UIViewController {
 
 extension ViewController : VSCaptureSessionDelegate {
     func didCaptureOutput(session:VSCaptureSession, texture textureIn:MTLTexture, sampleBuffer:CMSampleBuffer, presentationTime:CMTime) {
-        print("didCapture")
     }
 }

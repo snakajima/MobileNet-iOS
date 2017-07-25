@@ -29,9 +29,10 @@ class ViewController2: UIViewController {
                     // take the top 5 and map them to an array of (String, Double) tuples.
                     let top5 = observations[...4]
                         .map { ($0.identifier, Double($0.confidence)) }
-                    print(top5)
+                    //print(top5)
                     let (label, _) = top5[0]
                     self.labelFirst.text = label
+                    print(self.labelFirst.text!)
                 }
                 self.sampleBuffer = nil
             }

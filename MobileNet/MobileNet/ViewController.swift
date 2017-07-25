@@ -11,7 +11,7 @@ import AVFoundation
 import Vision
 
 class ViewController: UIViewController {
-    let model = MobileNet()
+    let model = MobileNetX()
     lazy var visionModel = try? VNCoreMLModel(for: self.model.model)
     var request:VNCoreMLRequest?
     lazy var session:VSCaptureSession = VSCaptureSession(device: MTLCreateSystemDefaultDevice()!, pixelFormat: MTLPixelFormat.a8Unorm, delegate: self)

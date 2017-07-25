@@ -20,18 +20,20 @@ class ViewController2: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         if let visionModel = try? VNCoreMLModel(for: self.model.model) {
-            request = VNCoreMLRequest(model: visionModel) { request, error in
+            let request = VNCoreMLRequest(model: visionModel) { request, error in
                 if let observations = request.results as? [VNClassificationObservation] {
                     // The observations appear to be sorted by confidence already, so we
                     // take the top 5 and map them to an array of (String, Double) tuples.
-                    let top5 = observations.prefix(through: 4)
+                    let top5 = observations[...4]
                         .map { ($0.identifier, Double($0.confidence)) }
                     print(top5)
                 }
                 self.sampleBuffer = nil
             }
-            request!.imageCropAndScaleOption = .centerCrop
+            request.imageCropAndScaleOption = .centerCrop
+            self.request = request
         }
+        session.cameraPosition = .back
         session.start()
         
         let previewLayer = AVCaptureVideoPreviewLayer(session: session.session!)

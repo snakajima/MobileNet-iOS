@@ -15,8 +15,8 @@ MobileNet-Caffer is a Caffe implementation of Google's [MobileNets](https://arxi
 
 ## Notes
 
-- The drop rate is about 50% on my iPhone 7, which means we are getting about 15fps.
-- If I perform the vision request from the main thread, it won't update the UILabel (iOS bug?).
+- The drop rate is about 50% on iPhone 7, which means we are getting about 15fps.
+- If I perform the vision requests from the main thread, it won't update the UILabel (iOS bug?).
 This is why I am using a background thread.
 - VSCaptureSession is a helper class for video capture sessions,
 which is copied from [VideoShader for Metal](https://github.com/snakajima/vs-metal).

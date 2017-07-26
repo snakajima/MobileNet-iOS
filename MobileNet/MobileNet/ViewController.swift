@@ -1,5 +1,5 @@
 //
-//  ViewController2.swift
+//  ViewController.swift
 //  MobileNet
 //
 //  Created by SATOSHI NAKAJIMA on 7/25/17.
@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import Vision
 
-class ViewController2: UIViewController {
+class ViewController: UIViewController {
     @IBOutlet var viewMain:UIView!
     @IBOutlet var labelFirst:UILabel!
     @IBOutlet var btnStart:UIBarButtonItem!
@@ -78,7 +78,7 @@ class ViewController2: UIViewController {
     }
 }
 
-extension ViewController2 : VSCaptureSessionDelegate {
+extension ViewController : VSCaptureSessionDelegate {
     func didCaptureOutput(session:VSCaptureSession, texture textureIn:MTLTexture, sampleBuffer:CMSampleBuffer, presentationTime:CMTime) {
         if self.sampleBuffer != nil {
             print("skip")

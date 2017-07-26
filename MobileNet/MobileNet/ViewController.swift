@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     // Note: We need to perform the vision request from a background queue, otherwise, the UI won't update (bug?)
     let queue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
     lazy var session:VSCaptureSession = VSCaptureSession(device: MTLCreateSystemDefaultDevice()!, pixelFormat: MTLPixelFormat.a8Unorm, delegate: self)
+    var previewLayer:AVCaptureVideoPreviewLayer?
     
     var fRunning = false {
         didSet {
@@ -29,12 +30,11 @@ class ViewController: UIViewController {
                 session.start()
                 let previewLayer = AVCaptureVideoPreviewLayer(session: session.session!)
                 previewLayer.frame = viewMain.bounds
-                viewMain.layer.addSublayer(previewLayer)
+                viewMain.layer.insertSublayer(previewLayer, at: 0)
+                self.previewLayer = previewLayer
             } else {
                 session.stop()
-                viewMain.layer.sublayers?.forEach { (layer) in
-                    layer.removeFromSuperlayer()
-                }
+                self.previewLayer?.removeFromSuperlayer()
             }
         }
     }

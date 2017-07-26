@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     
     // Note: We need to perform the vision request from a background queue, otherwise, the UI won't update (bug?)
     let queue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
-    lazy var session:VSCaptureSession = VSCaptureSession(device: MTLCreateSystemDefaultDevice()!, pixelFormat: MTLPixelFormat.a8Unorm, delegate: self)
+    var session:VSCaptureSession?
     var previewLayer:AVCaptureVideoPreviewLayer?
     
     var fRunning = false {
@@ -27,13 +27,18 @@ class ViewController: UIViewController {
             btnStop.isEnabled = fRunning
             if fRunning {
                 self.labelFirst.text = "Detecting..."
+                let session = VSCaptureSession(device: MTLCreateSystemDefaultDevice()!, pixelFormat: MTLPixelFormat.a8Unorm, delegate: self)
+                session.queue = queue
+                session.cameraPosition = .back
                 session.start()
                 let previewLayer = AVCaptureVideoPreviewLayer(session: session.session!)
                 previewLayer.frame = viewMain.bounds
                 viewMain.layer.insertSublayer(previewLayer, at: 0)
                 self.previewLayer = previewLayer
+                self.session = session
             } else {
-                session.stop()
+                session?.stop()
+                session = nil
                 self.previewLayer?.removeFromSuperlayer()
             }
         }
@@ -63,8 +68,6 @@ class ViewController: UIViewController {
             //request.preferBackgroundProcessing = true
             self.request = request
             
-            session.queue = queue
-            session.cameraPosition = .back
             fRunning = true
         }
     }

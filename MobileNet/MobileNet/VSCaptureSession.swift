@@ -23,6 +23,8 @@ class VSCaptureSession: NSObject {
     var fps:Int?
     /// Specifies the quality level of video frames (default is 720p)
     var preset = AVCaptureSession.Preset.hd1280x720
+    /// Specifies the dispatch queue for the callback
+    var queue = DispatchQueue.main
     
     private let device:MTLDevice
     fileprivate let pixelFormat:MTLPixelFormat
@@ -95,7 +97,7 @@ class VSCaptureSession: NSObject {
             videoOutput.videoSettings = [
                 kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA
             ]
-            videoOutput.setSampleBufferDelegate(self, queue: .main)
+            videoOutput.setSampleBufferDelegate(self, queue: queue)
             session.addOutput(videoOutput)
 
             //session.addOutput(AVCapturePhotoOutput())

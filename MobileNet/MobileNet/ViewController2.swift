@@ -15,6 +15,7 @@ class ViewController2: UIViewController {
     @IBOutlet var labelFirst:UILabel!
     @IBOutlet var btnStart:UIBarButtonItem!
     @IBOutlet var btnStop:UIBarButtonItem!
+    let queue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
     var fRunning = false {
         didSet {
             btnStart.isEnabled = !fRunning
@@ -37,13 +38,14 @@ class ViewController2: UIViewController {
     var request:VNCoreMLRequest?
     lazy var session:VSCaptureSession = VSCaptureSession(device: MTLCreateSystemDefaultDevice()!, pixelFormat: MTLPixelFormat.a8Unorm, delegate: self)
     var sampleBuffer:CMSampleBuffer?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    
+        session.queue = queue
         
         if let visionModel = try? VNCoreMLModel(for: self.model.model) {
             let request = VNCoreMLRequest(model: visionModel) { request, error in
-                assert(Thread.current == Thread.main)
                 if let observations = request.results as? [VNClassificationObservation] {
                     // The observations appear to be sorted by confidence already, so we
                     // take the top 5 and map them to an array of (String, Double) tuples.
@@ -51,8 +53,10 @@ class ViewController2: UIViewController {
                         .map { ($0.identifier, Double($0.confidence)) }
                     //print(top5)
                     let (label, _) = top5[0]
-                    self.labelFirst.text = label
-                    print(self.labelFirst.text!)
+                    DispatchQueue.main.async {
+                        self.labelFirst.text = label
+                    }
+                    print(label)
                 }
                 self.sampleBuffer = nil
             }

@@ -26,6 +26,7 @@
 		747C55D51F27E9100017D2CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		747C55DD1F27EFA70017D2CD /* VSCaptureSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VSCaptureSession.swift; sourceTree = "<group>"; };
 		74E463FA1F27FE8600516A39 /* MobileNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MobileNet.mlmodel; sourceTree = "<group>"; };
+		74E464051F28118000516A39 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +43,7 @@
 		747C55BD1F27E9100017D2CD = {
 			isa = PBXGroup;
 			children = (
+				74E464051F28118000516A39 /* README.md */,
 				747C55C81F27E9100017D2CD /* MobileNet */,
 				747C55C71F27E9100017D2CD /* Products */,
 			);

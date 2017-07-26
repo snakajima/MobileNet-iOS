@@ -15,7 +15,11 @@ class ViewController2: UIViewController {
     @IBOutlet var labelFirst:UILabel!
     @IBOutlet var btnStart:UIBarButtonItem!
     @IBOutlet var btnStop:UIBarButtonItem!
+    
+    // Note: We need to perform the vision request from a background queue, otherwise, the UI won't update (bug?)
     let queue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
+    lazy var session:VSCaptureSession = VSCaptureSession(device: MTLCreateSystemDefaultDevice()!, pixelFormat: MTLPixelFormat.a8Unorm, delegate: self)
+    
     var fRunning = false {
         didSet {
             btnStart.isEnabled = !fRunning
@@ -34,17 +38,13 @@ class ViewController2: UIViewController {
             }
         }
     }
-    let model = MobileNet()
     var request:VNCoreMLRequest?
-    lazy var session:VSCaptureSession = VSCaptureSession(device: MTLCreateSystemDefaultDevice()!, pixelFormat: MTLPixelFormat.a8Unorm, delegate: self)
     var sampleBuffer:CMSampleBuffer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        session.queue = queue
-        
-        if let visionModel = try? VNCoreMLModel(for: self.model.model) {
+        if let visionModel = try? VNCoreMLModel(for: MobileNet().model) {
             let request = VNCoreMLRequest(model: visionModel) { request, error in
                 if let observations = request.results as? [VNClassificationObservation] {
                     // The observations appear to be sorted by confidence already, so we
@@ -56,14 +56,14 @@ class ViewController2: UIViewController {
                     DispatchQueue.main.async {
                         self.labelFirst.text = label
                     }
-                    print(label)
                 }
                 self.sampleBuffer = nil
             }
             request.imageCropAndScaleOption = .centerCrop
-            request.preferBackgroundProcessing = true
+            //request.preferBackgroundProcessing = true
             self.request = request
             
+            session.queue = queue
             session.cameraPosition = .back
             fRunning = true
         }
@@ -86,7 +86,7 @@ extension ViewController2 : VSCaptureSessionDelegate {
         }
         if let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer),
            let request = self.request {
-            self.sampleBuffer = sampleBuffer
+            self.sampleBuffer = sampleBuffer // retain the reference count to make the pixelBuffer immutable.
             let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .up, options: [:])
             try? handler.perform([request])
         }

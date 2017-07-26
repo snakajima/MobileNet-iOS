@@ -13,6 +13,26 @@ import Vision
 class ViewController2: UIViewController {
     @IBOutlet var viewMain:UIView!
     @IBOutlet var labelFirst:UILabel!
+    @IBOutlet var btnStart:UIBarButtonItem!
+    @IBOutlet var btnStop:UIBarButtonItem!
+    var fRunning = false {
+        didSet {
+            btnStart.isEnabled = !fRunning
+            btnStop.isEnabled = fRunning
+            if fRunning {
+                self.labelFirst.text = "Detecting..."
+                session.start()
+                let previewLayer = AVCaptureVideoPreviewLayer(session: session.session!)
+                previewLayer.frame = viewMain.bounds
+                viewMain.layer.addSublayer(previewLayer)
+            } else {
+                session.stop()
+                viewMain.layer.sublayers?.forEach { (layer) in
+                    layer.removeFromSuperlayer()
+                }
+            }
+        }
+    }
     let model = MobileNet()
     var request:VNCoreMLRequest?
     lazy var session:VSCaptureSession = VSCaptureSession(device: MTLCreateSystemDefaultDevice()!, pixelFormat: MTLPixelFormat.a8Unorm, delegate: self)
@@ -37,16 +57,20 @@ class ViewController2: UIViewController {
                 self.sampleBuffer = nil
             }
             request.imageCropAndScaleOption = .centerCrop
-            //request.preferBackgroundProcessing = true
+            request.preferBackgroundProcessing = true
             self.request = request
-            self.labelFirst.text = "Detecting..."
+            
+            session.cameraPosition = .back
+            fRunning = true
         }
-        session.cameraPosition = .back
-        session.start()
-        
-        let previewLayer = AVCaptureVideoPreviewLayer(session: session.session!)
-        previewLayer.frame = viewMain.bounds
-        viewMain.layer.addSublayer(previewLayer)
+    }
+    
+    @IBAction func stop() {
+        fRunning = false
+    }
+    
+    @IBAction func start() {
+        fRunning = true
     }
 }
 

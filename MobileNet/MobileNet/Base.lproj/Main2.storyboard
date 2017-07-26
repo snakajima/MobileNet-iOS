@@ -18,34 +18,54 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GNN-0G-tLd">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="634"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="590"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Class" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gmY-nP-eVk">
-                                <rect key="frame" x="0.0" y="634" width="375" height="33"/>
+                                <rect key="frame" x="0.0" y="590" width="375" height="33"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="33" id="Mx5-yj-xOu"/>
                                     <constraint firstAttribute="height" constant="33" id="uZe-gw-YOE"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gJn-UA-odp">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem systemItem="stop" id="i4l-2E-P83">
+                                        <connections>
+                                            <action selector="stop" destination="cWB-if-CK1" id="r6s-OQ-Rhb"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="LfB-eu-2wU"/>
+                                    <barButtonItem systemItem="play" id="LGl-ue-0Xa">
+                                        <connections>
+                                            <action selector="start" destination="cWB-if-CK1" id="pwu-Ym-IeY"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="gJn-UA-odp" firstAttribute="leading" secondItem="WzI-41-MqB" secondAttribute="leading" id="8JJ-zc-snn"/>
                             <constraint firstItem="gmY-nP-eVk" firstAttribute="trailing" secondItem="WzI-41-MqB" secondAttribute="trailing" id="8V9-Rx-v38"/>
                             <constraint firstItem="GNN-0G-tLd" firstAttribute="trailing" secondItem="WzI-41-MqB" secondAttribute="trailing" id="AKg-lo-0PL"/>
-                            <constraint firstItem="gmY-nP-eVk" firstAttribute="bottom" secondItem="WzI-41-MqB" secondAttribute="bottom" id="Irg-4n-Eef"/>
+                            <constraint firstItem="gJn-UA-odp" firstAttribute="bottom" secondItem="WzI-41-MqB" secondAttribute="bottom" id="Sgp-yS-sGC"/>
                             <constraint firstItem="gmY-nP-eVk" firstAttribute="leading" secondItem="WzI-41-MqB" secondAttribute="leading" id="dIV-iv-gOb"/>
+                            <constraint firstItem="gJn-UA-odp" firstAttribute="trailing" secondItem="WzI-41-MqB" secondAttribute="trailing" id="iQz-XY-Ofg"/>
                             <constraint firstItem="GNN-0G-tLd" firstAttribute="leading" secondItem="WzI-41-MqB" secondAttribute="leading" id="lSs-xL-Iit"/>
                             <constraint firstItem="gmY-nP-eVk" firstAttribute="top" secondItem="GNN-0G-tLd" secondAttribute="bottom" id="lzB-oD-GDm"/>
                             <constraint firstItem="GNN-0G-tLd" firstAttribute="top" secondItem="jmX-ia-eB4" secondAttribute="top" id="tdh-8L-PoW"/>
+                            <constraint firstItem="gJn-UA-odp" firstAttribute="top" secondItem="gmY-nP-eVk" secondAttribute="bottom" id="zpJ-00-10g"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="WzI-41-MqB"/>
                     </view>
                     <connections>
+                        <outlet property="btnStart" destination="LGl-ue-0Xa" id="uRB-TA-n3T"/>
+                        <outlet property="btnStop" destination="i4l-2E-P83" id="2st-tY-Rzq"/>
                         <outlet property="labelFirst" destination="gmY-nP-eVk" id="4Me-Om-ufl"/>
                         <outlet property="viewMain" destination="GNN-0G-tLd" id="nvz-LA-quj"/>
                     </connections>

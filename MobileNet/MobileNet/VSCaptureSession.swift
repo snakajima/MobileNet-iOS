@@ -105,7 +105,11 @@ class VSCaptureSession: NSObject {
             print("VSCaptureSession failed to start the video capture session")
         }
     }
-
+    
+    func stop() {
+        session?.stopRunning()
+        session = nil
+    }
 }
 
 extension VSCaptureSession : AVCaptureAudioDataOutputSampleBufferDelegate,

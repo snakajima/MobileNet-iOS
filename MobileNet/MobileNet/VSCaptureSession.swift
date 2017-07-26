@@ -57,7 +57,7 @@ class VSCaptureSession: NSObject {
     }
 
     private func addCamera(session:AVCaptureSession) throws -> Bool {
-        let s = AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera],
+        let s = AVCaptureDevice.DiscoverySession(__deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera],
                                                  mediaType: AVMediaType.video, position: self.cameraPosition)
         let camera = s.devices[0]
         

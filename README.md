@@ -20,6 +20,6 @@ MobileNet-Caffer is a Caffe implementation of Google's [MobileNets](https://arxi
 This is why I am using a background thread.
 - VSCaptureSession is a helper class for video capture sessions,
 which is copied from [VideoShader for Metal](https://github.com/snakajima/vs-metal).
-- I am specifing CGImagePropertyOrientation.up as the orientation to VNImageRequestHandler,
-but I am not sure if this is the right parameter (Apple's documentation is quite ambiguous).
+- I have implemented exifOrientationFromDeviceOrientation to give the right orientation to VNImageRequestHandler,
+but I am not sure if this is the right implementation.
 

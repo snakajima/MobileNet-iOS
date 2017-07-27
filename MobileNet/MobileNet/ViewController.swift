@@ -21,6 +21,23 @@ class ViewController: UIViewController {
     var session:VSCaptureSession?
     var previewLayer:AVCaptureVideoPreviewLayer?
     
+    
+    // Assuming back camera.
+    var exifOrientationFromDeviceOrientation: CGImagePropertyOrientation {
+        let exifOrientation: CGImagePropertyOrientation
+        switch UIDevice.current.orientation {
+        case .portraitUpsideDown:
+            exifOrientation = .left
+        case .landscapeLeft:
+            exifOrientation = .up
+        case .landscapeRight:
+            exifOrientation = .down
+        default:
+            exifOrientation = .right
+        }
+        return exifOrientation
+    }
+
     var fRunning = false {
         didSet {
             btnStart.isEnabled = !fRunning
@@ -90,7 +107,7 @@ extension ViewController : VSCaptureSessionDelegate {
         if let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer),
            let request = self.request {
             self.sampleBuffer = sampleBuffer // retain the reference count to make the pixelBuffer immutable.
-            let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .up, options: [:])
+            let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: self.exifOrientationFromDeviceOrientation, options: [:])
             try? handler.perform([request])
         }
     }
